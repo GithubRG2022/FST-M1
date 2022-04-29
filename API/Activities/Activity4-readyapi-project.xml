@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="164e97b7-06b6-4be6-9472-4fc7212e18c6" created="3.10.1" activeEnvironment="Default environment" name="REST datadrivenact1" resourceRoot="" updated="3.10.1 2021-10-13T15:50:30Z" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface xsi:type="con:RestService" id="3afc24c3-aae4-4487-ae56-3a4495088b87" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://ipwhois.app" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache type="TEXT" rootPart=""/>
+    <con:endpoints>
+      <con:endpoint>http://ipwhois.app</con:endpoint>
+    </con:endpoints>
+    <con:resource name="IP" path="/json/{IP}" id="e94fc090-bc59-4f3a-9c78-9c375ae474d1">
+      <con:settings/>
+      <con:parameters/>
+      <con:method name="IP" id="8a16a81b-7524-4149-94af-4f122bb2bf50" method="GET">
+        <con:settings/>
+        <con:parameters>
+          <con:parameter required="true">
+            <con:name>IP</con:name>
+            <con:value>IP</con:value>
+            <con:style>TEMPLATE</con:style>
+            <con:default>IP</con:default>
+            <con:path xsi:nil="true"/>
+            <con:description xsi:nil="true"/>
+          </con:parameter>
+        </con:parameters>
+        <con:representation type="RESPONSE">
+          <con:mediaType>application/json; charset=utf-8</con:mediaType>
+          <con:status>200</con:status>
+          <con:params/>
+          <con:element xmlns:json="http://ipwhois.app/json/">json:Response</con:element>
+        </con:representation>
+        <con:request name="Request 1" id="2f03b23c-80a8-4b00-910a-e1abeeb3122c" mediaType="application/json">
+          <con:settings>
+            <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+          </con:settings>
+          <con:endpoint>http://ipwhois.app</con:endpoint>
+          <con:request/>
+          <con:originalUri>http://ipwhois.app/json/</con:originalUri>
+          <con:credentials>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          <con:parameters>
+            <con:entry key="IP" value="${DataSource#address}"/>
+          </con:parameters>
+          <con:parameterOrder>
+            <con:entry>IP</con:entry>
+          </con:parameterOrder>
+        </con:request>
+      </con:method>
+    </con:resource>
+  </con:interface>
+  <con:testSuite id="8b789ef9-83e0-42cc-b73c-8a52beb27e1b" name="http://ipwhois.app Test Suite">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase id="dbc545c9-0240-4b62-ac87-fb236b22ee5e" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="http://ipwhois.app Test Case 1" searchProperties="true" timeout="0">
+      <con:settings/>
+      <con:testStep type="datasource" name="Data Source" id="4d6e3d7d-aae9-4dea-9f80-a4145d31ec97">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSource type="File">
+            <con:configuration>
+              <fileName>C:/Users/0029YM744/Downloads/datasourceloopact1.txt</fileName>
+              <separator>,</separator>
+              <trim>true</trim>
+              <charset>Cp1252</charset>
+              <quotedValues>false</quotedValues>
+            </con:configuration>
+          </con:dataSource>
+          <con:shared>true</con:shared>
+          <con:restartShared>true</con:restartShared>
+          <con:property>IP</con:property>
+          <con:property>address</con:property>
+          <con:restartOnRun>true</con:restartOnRun>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="restrequest" name="Request 1" id="13f2dec9-1e18-475b-8e72-cc3e1d38ca9d">
+        <con:settings/>
+        <con:config service="http://ipwhois.app" resourcePath="/json/{IP}" methodName="IP" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="Request 1" id="2f03b23c-80a8-4b00-910a-e1abeeb3122c" mediaType="application/json">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:endpoint>http://ipwhois.app</con:endpoint>
+            <con:request/>
+            <con:originalUri>http://ipwhois.app/json/</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="8b5254ce-4467-4d4d-9994-e2a4081ff9d0" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="DataAndMetadataAssertion" id="0aaf4601-a8f7-4ae1-a0d7-a13e6199d778" name="Smart Assertion">
+              <con:configuration xsi:type="con:DataAndMetadataAssertion">
+                <con:mode>Received Data</con:mode>
+                <con:elements>
+                  <con:path>$['ip']</con:path>
+                  <con:element>ip</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>117.200.129.20</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['success']</con:path>
+                  <con:element>success</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>true</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>3</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['type']</con:path>
+                  <con:element>type</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>IPv4</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['continent']</con:path>
+                  <con:element>continent</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>Asia</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['continent_code']</con:path>
+                  <con:element>continent_code</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>AS</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['country']</con:path>
+                  <con:element>country</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>India</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['country_code']</con:path>
+                  <con:element>country_code</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>IN</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['country_flag']</con:path>
+                  <con:element>country_flag</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>https://cdn.ipwhois.io/flags/in.svg</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['country_capital']</con:path>
+                  <con:element>country_capital</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>New Delhi</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['country_phone']</con:path>
+                  <con:element>country_phone</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>+91</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['country_neighbours']</con:path>
+                  <con:element>country_neighbours</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>CN,NP,MM,BT,PK,BD</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['region']</con:path>
+                  <con:element>region</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>Karnataka</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['city']</con:path>
+                  <con:element>city</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>Hassan</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['latitude']</con:path>
+                  <con:element>latitude</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>13.0068142</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>true</con:numberType>
+                  <con:expectedDataType>2</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['longitude']</con:path>
+                  <con:element>longitude</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>76.0995519</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>true</con:numberType>
+                  <con:expectedDataType>2</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['asn']</con:path>
+                  <con:element>asn</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>AS9829</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['org']</con:path>
+                  <con:element>org</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>Broadband Multiplay Project, O/o DGM BB, NOC BSNL Bangalore</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['isp']</con:path>
+                  <con:element>isp</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>National Internet Backbone</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['timezone']</con:path>
+                  <con:element>timezone</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>Asia/Calcutta</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['timezone_name']</con:path>
+                  <con:element>timezone_name</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>India Standard Time</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['timezone_dstOffset']</con:path>
+                  <con:element>timezone_dstOffset</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>0</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>true</con:numberType>
+                  <con:expectedDataType>2</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['timezone_gmtOffset']</con:path>
+                  <con:element>timezone_gmtOffset</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>19800</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>true</con:numberType>
+                  <con:expectedDataType>2</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['timezone_gmt']</con:path>
+                  <con:element>timezone_gmt</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>GMT +5:30</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['currency']</con:path>
+                  <con:element>currency</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>Indian Rupee</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['currency_code']</con:path>
+                  <con:element>currency_code</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>INR</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['currency_symbol']</con:path>
+                  <con:element>currency_symbol</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>₹</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['currency_rates']</con:path>
+                  <con:element>currency_rates</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>75.523</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>true</con:numberType>
+                  <con:expectedDataType>2</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['currency_plural']</con:path>
+                  <con:element>currency_plural</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>Indian rupees</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>false</con:numberType>
+                  <con:expectedDataType>1</con:expectedDataType>
+                </con:elements>
+                <con:elements>
+                  <con:path>$['completed_requests']</con:path>
+                  <con:element>completed_requests</con:element>
+                  <con:operatorId>1</con:operatorId>
+                  <con:enabled>true</con:enabled>
+                  <con:expectedValue>2</con:expectedValue>
+                  <con:caseSensitive>true</con:caseSensitive>
+                  <con:numberType>true</con:numberType>
+                  <con:expectedDataType>2</con:expectedDataType>
+                </con:elements>
+                <con:originalMessage>{"ip":"117.200.129.20","success":true,"type":"IPv4","continent":"Asia","continent_code":"AS","country":"India","country_code":"IN","country_flag":"https:\/\/cdn.ipwhois.io\/flags\/in.svg","country_capital":"New Delhi","country_phone":"+91","country_neighbours":"CN,NP,MM,BT,PK,BD","region":"Karnataka","city":"Hassan","latitude":13.0068142,"longitude":76.0995519,"asn":"AS9829","org":"Broadband Multiplay Project, O\/o DGM BB, NOC BSNL Bangalore","isp":"National Internet Backbone","timezone":"Asia\/Calcutta","timezone_name":"India Standard Time","timezone_dstOffset":0,"timezone_gmtOffset":19800,"timezone_gmt":"GMT +5:30","currency":"Indian Rupee","currency_code":"INR","currency_symbol":"\u20b9","currency_rates":75.523,"currency_plural":"Indian rupees","completed_requests":2}</con:originalMessage>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="JsonPath Match" id="4a1be473-fcd1-4ad8-a4a6-24ae2f652855" name="JSONPath Match">
+              <con:configuration>
+                <path>$['country']</path>
+                <content>"India"</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="IP" value="${DataSource#address}"/>
+            </con:parameters>
+            <con:parameterOrder>
+              <con:entry>IP</con:entry>
+            </con:parameterOrder>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasourceloop" name="Data Source Loop" id="31e572e7-41e0-499b-907e-22a0f522271e">
+        <con:settings/>
+        <con:config>
+          <dataSourceStep>Data Source</dataSourceStep>
+          <targetStep>Request 1</targetStep>
+          <discardResults>true</discardResults>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>
+  <con:properties/>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:jmsConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:oAuth1ProfileContainer/>
+  <con:reporting>
+    <con:reportTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:parameters/>
+    <con:parameters/>
+  </con:reporting>
+  <con:reporting/>
+  <con:eventHandlers type="RequestFilter.filterRequest" name="RequestFilter.filterRequest">
+    <con:script>// Sample event script to add custom HTTP header to all outgoing REST, SOAP and HTTP(S) calls
+// This code is often used for adding custom authentication to ReadyAPI functional tests
+
+// If hardcoding the token, uncomment and change line 5
+// token = '4567'
+
+// If your token is parameterized in Project level custom property, uncomment line 8
+// token = request.parent.testCase.testSuite.project.getProperty('auth_token').getValue()
+
+// To modify all outgoing calls, remove comments from lines 11 to 16
+// headers = request.requestHeaders
+// if (headers.containsKey('auth_token2') == false) {
+//   headers.put('auth_token2', token)
+//   request.requestHeaders = headers
+// }</con:script>
+  </con:eventHandlers>
+  <con:eventHandlers type="TestRunListener.afterStep" name="TestRunListener.afterStep">
+    <con:script>// Save all test step results into files
+// Change the directory path in line 5 to a location where you want to store details
+// then uncomment lines 5 to 10
+
+// filePath = 'C:\\tempOutputDirectory\\'
+// fos = new java.io.FileOutputStream(filePath + testStepResult.testStep.label + '.txt', true)
+// pw = new java.io.PrintWriter(fos)
+// testStepResult.writeTo(pw)
+// pw.close()
+// fos.close()</con:script>
+  </con:eventHandlers>
+  <con:authRepository/>
+  <con:tags/>
+</con:soapui-project>
